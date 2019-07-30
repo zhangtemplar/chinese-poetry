@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 
-const port = 3000;
+const port = 8000;
 
 const formatBody = (title, author, body) => {
   const titleSize = Math.min(50 / title.length, 10);

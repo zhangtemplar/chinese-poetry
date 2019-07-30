@@ -4,7 +4,7 @@
   "description": "return a poetry on every request",
   "main": "index.js",
   "scripts": {
-    "run": "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
