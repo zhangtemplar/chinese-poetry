@@ -6,13 +6,19 @@ const fs = require('fs');
 
 const port = 3000;
 
-const formatBody = (title, author, body) => `<html>
+const formatBody = (title, author, body) => {
+  const titleSize = Math.min(50 / title.length, 10);
+  const authorSize = Math.min(50 / author.length, titleSize / 1.4);
+  const bodySize = Math.min(80 / Math.max.apply(null, body.map(b => b.length)), 100 / body.length, 8);
+  return `<html>
     <body>
-        <h1 align="center">${title}</h1>
-        <h2 align="center">${author}</h2>
-        ${body}
+        <h1 align="center" style="font-size: ${titleSize}vw">${title}</h1>
+        <h2 align="center" style="font-size: ${authorSize}vw">${author}</h2>
+        <p>
+            ${body.map(line => `<div align="center" style="font-size: ${bodySize}vw">${line}</div>`).join('\n')}
+        </p>
       </body>
-</html>`;
+</html>`};
 
 app.get('/', (req, res) => res.send("Please use /tangshi for 唐诗，/songci for 宋词, /shijing for 诗经"));
 
@@ -24,13 +30,12 @@ app.get('/tangshi', (req, res) => {
       return;
     }
     // randomly choose a file
-    const file = files.filter(f => f.startsWith("poet."))[
-        Math.floor(Math.random() * files.length)];
+    files = files.filter(f => f.startsWith("poet."));
+    const file = files[Math.floor(Math.random() * files.length)];
     const poetries = JSON.parse(fs.readFileSync(path.join(directoryName, file)));
     const poetry = poetries[Math.floor(Math.random() * poetries.length)];
     // Render the poetry
-    const content = poetry.paragraphs.map(line => `<p align="center">${line}</p>`).join('\n');
-    res.send(formatBody(poetry.title, poetry.author, content));
+    res.send(formatBody(poetry.title, poetry.author, poetry.paragraphs));
   });
 });
 
@@ -42,13 +47,12 @@ app.get('/songci', (req, res) => {
       return;
     }
     // randomly choose a file
-    const file = files.filter(f => f.startsWith("ci.song"))[
-        Math.floor(Math.random() * files.length)];
+    files = files.filter(f => f.startsWith("ci.song"));
+    const file = files[Math.floor(Math.random() * files.length)];
     const poetries = JSON.parse(fs.readFileSync(path.join(directoryName, file)));
     const poetry = poetries[Math.floor(Math.random() * poetries.length)];
     // Render the poetry
-    const content = poetry.paragraphs.map(line => `<p align="center">${line}</p>`).join('\n');
-    res.send(formatBody(poetry.rhythmic, poetry.author, content));
+    res.send(formatBody(poetry.rhythmic, poetry.author, poetry.paragraphs));
   });
 });
 
@@ -57,8 +61,7 @@ app.get('/shijing', (req, res) => {
   const poetries = JSON.parse(fs.readFileSync(file));
   const poetry = poetries[Math.floor(Math.random() * poetries.length)];
   // Render the poetry
-  const content = poetry.content.map(line => `<p align="center">${line}</p>`).join('\n');
-  res.send(formatBody(poetry.title, `${poetry.chapter}-${poetry.section}`, content));
+  res.send(formatBody(poetry.title, `${poetry.chapter}-${poetry.section}`, poetry.content));
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
