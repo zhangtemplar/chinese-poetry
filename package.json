@@ -1,0 +1,22 @@
+{
+  "name": "chinese-poetry",
+  "version": "1.0.0",
+  "description": "return a poetry on every request",
+  "main": "index.js",
+  "scripts": {
+    "run": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chinese-poetry/chinese-poetry.git"
+  },
+  "author": "Qiang Zhang [zhangtemplar@gmail.com]",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chinese-poetry/chinese-poetry/issues"
+  },
+  "homepage": "https://github.com/chinese-poetry/chinese-poetry#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
