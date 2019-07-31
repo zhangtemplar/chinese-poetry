@@ -7,15 +7,19 @@ const fs = require('fs');
 const port = 8000;
 
 const formatBody = (title, author, body) => {
-  const titleSize = Math.min(50 / title.length, 10);
-  const authorSize = Math.min(50 / author.length, titleSize / 1.4);
-  const bodySize = Math.min(80 / Math.max.apply(null, body.map(b => b.length)), 100 / body.length, 8);
+  // Fit the content to a 600 x 800 screen
+  // Title should occupy 10% of height or 2/3 of width, whichever is smaller
+  const titleSize = Math.min(800 / title.length, 80);
+  // Author should be 80% of title size or 50% of width, whichever is smaller
+  const authorSize = Math.min(600 / author.length, titleSize * 0.8);
+  // Body should take 80% of height or 90% of the width, whichever is smaller
+  const bodySize = Math.min(900 / Math.max.apply(null, body.map(b => b.length)), 640 / body.length);
   return `<html>
     <body>
-        <h1 align="center" style="font-size: ${titleSize}vw">${title}</h1>
-        <h2 align="center" style="font-size: ${authorSize}vw">${author}</h2>
+        <h1 align="center" style="font-size: ${titleSize}px">${title}</h1>
+        <h2 align="center" style="font-size: ${authorSize}px">${author}</h2>
         <p>
-            ${body.map(line => `<div align="center" style="font-size: ${bodySize}vw">${line}</div>`).join('\n')}
+            ${body.map(line => `<div align="center" style="font-size: ${bodySize}px">${line}</div>`).join('\n')}
         </p>
       </body>
 </html>`};
