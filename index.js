@@ -9,11 +9,11 @@ const port = 8000;
 const formatBody = (title, author, body) => {
   // Fit the content to a 600 x 800 screen
   // Title should occupy 10% of height or 2/3 of width, whichever is smaller
-  const titleSize = Math.min(800 / title.length, 80);
+  const titleSize = Math.min(400 / title.length, 80);
   // Author should be 80% of title size or 50% of width, whichever is smaller
-  const authorSize = Math.min(600 / author.length, titleSize * 0.8);
+  const authorSize = Math.min(300 / author.length, titleSize * 0.8);
   // Body should take 80% of height or 90% of the width, whichever is smaller
-  const bodySize = Math.min(900 / Math.max.apply(null, body.map(b => b.length)), 640 / body.length);
+  const bodySize = Math.min(540 / Math.max.apply(null, body.map(b => b.length)), 640 / body.length);
   return `<html>
     <body>
         <h1 align="center" style="font-size: ${titleSize}px">${title}</h1>
