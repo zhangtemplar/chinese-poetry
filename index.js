@@ -5,22 +5,25 @@ const fs = require('fs');
 
 
 const port = 8000;
+const port = 80;
 const width = 1200;
+// http://smad.jmu.edu/shen/webtype/lineheight.html#:~:text=In%20CSS%2C%20the%20line%2Dheight,height%20is%20about%2016.8px.
+const lineHeightFontSizeRatio = 1.4;
 const height = 825;
 
 const formatBody = (title, author, body) => {
   // Title should occupy 10% of height or 2/3 of width, whichever is smaller
-  const titleSize = Math.min(width * 2 / 3 / title.length, height / 10);
+  const titleSize = Math.min(width * 2 / 3 / title.length, height * 0.1 / lineHeightFontSizeRatio);
   // Author should be 80% of title size or 50% of width, whichever is smaller
   const authorSize = Math.min(width / 2 / author.length, titleSize * 0.8);
   // Body should take 80% of height or 90% of the width, whichever is smaller
-  const bodySize = Math.min(width * 9 / 10 / Math.max.apply(null, body.map(b => b.length)), height * 8/ 10 / body.length);
+  const bodySize = Math.min(width * 0.9 / Math.max.apply(null, body.map(b => b.length)), height * 0.8 / lineHeightFontSizeRatio / body.length);
   return `<html>
     <body>
-        <h1 align="center" style="font-size: ${titleSize}px">${title}</h1>
-        <h2 align="center" style="font-size: ${authorSize}px">${author}</h2>
+        <h1 align="center" style="margin: 0; font-size: ${titleSize}px">${title}</h1>
+        <h2 align="center" style="margin: 0; font-size: ${authorSize}px">${author}</h2>
         <p>
-            ${body.map(line => `<div align="center" style="font-size: ${bodySize}px">${line}</div>`).join('\n')}
+            ${body.map(line => `<div align="center" style="margin: 0;font-size: ${bodySize}px">${line}</div>`).join('\n')}
         </p>
       </body>
 </html>`};
