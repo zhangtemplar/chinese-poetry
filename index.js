@@ -25,7 +25,7 @@ const formatBody = (title, author, body) => {
       </body>
 </html>`};
 
-app.get('/', (req, res) => res.send("Please use /tangshi for 唐诗，/songci for 宋词, /shijing for 诗经"));
+app.get('/', (req, res) => res.send("Please use /tangshi for 唐诗，/songci for 宋词, /shijing for 诗经，/yuanqu for 元曲, /caocao for 曹操"));
 
 app.get('/tangshi', (req, res) => {
   const directoryName = path.join(__dirname, 'json');
@@ -67,6 +67,22 @@ app.get('/shijing', (req, res) => {
   const poetry = poetries[Math.floor(Math.random() * poetries.length)];
   // Render the poetry
   res.send(formatBody(poetry.title, `${poetry.chapter}-${poetry.section}`, poetry.content));
+});
+
+app.get('/caocao', (req, res) => {
+  const file = path.join(__dirname, 'caocaoshiji', 'caocao.json');
+  const poetries = JSON.parse(fs.readFileSync(file));
+  const poetry = poetries[Math.floor(Math.random() * poetries.length)];
+  // Render the poetry
+  res.send(formatBody(poetry.title, '曹操', poetry.paragraphs));
+});
+
+app.get('yuanqu', (req, res) => {
+  const file = path.join(__dirname, 'yuanqu', 'yuanqu.json');
+  const poetries = JSON.parse(fs.readFileSync(file));
+  const poetry = poetries[Math.floor(Math.random() * poetries.length)];
+  // Render the poetry
+  res.send(formatBody(poetry.title, poetry.author, poetry.paragraphs));
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
