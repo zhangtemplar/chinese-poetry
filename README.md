@@ -4,8 +4,6 @@
   </a>
 </p>
 
-<p align="center">阿里招p6/p7 Python Golang | gaojunqi@outlook.com | 上海张江 </p>
-
 <h2 align="center">chinese-poetry: 最全中文诗歌古典文集数据库</h2>
 
 <p align="center">
@@ -19,10 +17,7 @@
     <img height="28px" alt="Contributors" src="https://img.shields.io/github/contributors/chinese-poetry/chinese-poetry.svg?style=for-the-badge" style="max-width:100%;">
   </a>
   <a href="https://www.patreon.com/jackeygao" rel="nofollow">
-    <img height="28px" alt="Patreon" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fjackeygao%2Fpledges&amp;style=for-the-badge" style="max-width:100%;">
-  </a>
-  <a href="https://github.com/chinese-poetry/chinese-poetry/" rel="nofollow">
-    <img alt="HitCount" height="28px" src="http://hits.dwyl.io/chinese-poetry/chinese-poetry.svg" style="max-width:100%;">
+    <img height="28px" alt="Patreon" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Djackeygao%26type%3Dpledges&style=for-the-badge" style="max-width:100%;">
   </a>
 </p>
 
@@ -101,7 +96,7 @@
 
 ### 赞助者
 
-[上海逆行信息科技](http://www.desmix.com/)
+无
 
 ### 贡献者
 
