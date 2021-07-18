@@ -4,12 +4,11 @@ const path = require('path');
 const fs = require('fs');
 
 
-const port = 8000;
 const port = 80;
 const width = 1200;
 // http://smad.jmu.edu/shen/webtype/lineheight.html#:~:text=In%20CSS%2C%20the%20line%2Dheight,height%20is%20about%2016.8px.
 const lineHeightFontSizeRatio = 1.4;
-const height = 825;
+const height = 825 - 24;
 
 const formatBody = (title, author, body) => {
   // Title should occupy 10% of height or 2/3 of width, whichever is smaller
@@ -31,37 +30,19 @@ const formatBody = (title, author, body) => {
 app.get('/', (req, res) => res.send("Please use /tangshi for 唐诗，/songci for 宋词, /shijing for 诗经，/yuanqu for 元曲, /caocao for 曹操"));
 
 app.get('/tangshi', (req, res) => {
-  const directoryName = path.join(__dirname, 'json');
-  fs.readdir(directoryName, (err, files) => {
-    if (err) {
-      res.status(500).end();
-      return;
-    }
-    // randomly choose a file
-    files = files.filter(f => f.startsWith("poet."));
-    const file = files[Math.floor(Math.random() * files.length)];
-    const poetries = JSON.parse(fs.readFileSync(path.join(directoryName, file)));
-    const poetry = poetries[Math.floor(Math.random() * poetries.length)];
-    // Render the poetry
-    res.send(formatBody(poetry.title, poetry.author, poetry.paragraphs));
-  });
+  const file = path.join(__dirname, 'json', '唐诗三百首.json');
+  const poetries = JSON.parse(fs.readFileSync(path.join(directoryName, file)));
+  const poetry = poetries[Math.floor(Math.random() * poetries.length)];
+  // Render the poetry
+  res.send(formatBody(poetry.title, poetry.author, poetry.paragraphs));
 });
 
 app.get('/songci', (req, res) => {
-  const directoryName = path.join(__dirname, 'ci');
-  fs.readdir(directoryName, (err, files) => {
-    if (err) {
-      res.status(500).end();
-      return;
-    }
-    // randomly choose a file
-    files = files.filter(f => f.startsWith("ci.song"));
-    const file = files[Math.floor(Math.random() * files.length)];
-    const poetries = JSON.parse(fs.readFileSync(path.join(directoryName, file)));
-    const poetry = poetries[Math.floor(Math.random() * poetries.length)];
-    // Render the poetry
-    res.send(formatBody(poetry.rhythmic, poetry.author, poetry.paragraphs));
-  });
+  const file = path.join(__dirname, 'ci', '宋词三百首.json');
+  const poetries = JSON.parse(fs.readFileSync(path.join(directoryName, file)));
+  const poetry = poetries[Math.floor(Math.random() * poetries.length)];
+  // Render the poetry
+  res.send(formatBody(poetry.rhythmic, poetry.author, poetry.paragraphs));
 });
 
 app.get('/shijing', (req, res) => {
