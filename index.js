@@ -31,7 +31,7 @@ app.get('/', (req, res) => res.send("Please use /tangshi for 唐诗，/songci fo
 
 app.get('/tangshi', (req, res) => {
   const file = path.join(__dirname, 'json', '唐诗三百首.json');
-  const poetries = JSON.parse(fs.readFileSync(path.join(directoryName, file)));
+  const poetries = JSON.parse(fs.readFileSync(file));
   const poetry = poetries[Math.floor(Math.random() * poetries.length)];
   // Render the poetry
   res.send(formatBody(poetry.title, poetry.author, poetry.paragraphs));
@@ -39,7 +39,7 @@ app.get('/tangshi', (req, res) => {
 
 app.get('/songci', (req, res) => {
   const file = path.join(__dirname, 'ci', '宋词三百首.json');
-  const poetries = JSON.parse(fs.readFileSync(path.join(directoryName, file)));
+  const poetries = JSON.parse(fs.readFileSync(file));
   const poetry = poetries[Math.floor(Math.random() * poetries.length)];
   // Render the poetry
   res.send(formatBody(poetry.rhythmic, poetry.author, poetry.paragraphs));
